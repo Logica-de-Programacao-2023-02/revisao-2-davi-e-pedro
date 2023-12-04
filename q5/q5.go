@@ -11,6 +11,24 @@ package q5
 //seguinte regra. Números, começando com 1, são anexados um após o outro ao nome (name1, name2, ...), entre esses números,
 //o menor `i` é encontrado de forma que namei ainda não exista no banco de dados.
 
-func Register(names []string) []string {
-	return nil
+
+import "fmt"
+
+func registrarUsuarios(nomes []string) []string {
+	bancoDeDados := make(map[string]int)
+	resultado := make([]string, 0)
+
+	for _, nome := range nomes {
+		if ocorrencias, existe := bancoDeDados[nome]; !existe {
+			bancoDeDados[nome] = 1
+			resultado = append(resultado, "OK")
+		} else {
+			sugestao := fmt.Sprintf("%s%d", nome, ocorrencias)
+			bancoDeDados[nome]++
+			bancoDeDados[sugestao] = 1
+			resultado = append(resultado, sugestao)
+		}
+	}
+
+	return resultado
 }

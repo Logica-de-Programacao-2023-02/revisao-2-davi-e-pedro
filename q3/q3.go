@@ -11,12 +11,32 @@ package q3
 //houver vários vídeos que se encaixam nessa condição, ele deseja escolher o vídeo com o maior nível de entretenimento.
 //Retorne qualquer vídeo apropriado ou exiba um erro caso não haja um vídeo adequado dentro do tempo disponível.
 
-type Video struct {
-	ID            int
-	Duration      int
-	Entertainment int
+
+import "fmt"
+
+type Participant struct {
+	Name string
+	Role string
 }
 
-func ChooseVideo(videos []Video, time int) (Video, error) {
-	return Video{}, nil
+func calcularNumeroMaximoEquipes(participantes []Participant) int {
+	contagemProgramadores := 0
+	contagemMatematicos := 0
+
+	for _, participante := range participantes {
+		if participante.Role == "Programmer" {
+			contagemProgramadores++
+		} else if participante.Role == "Mathematician" {
+			contagemMatematicos++
+		}
+	}
+
+	numeroMaximoEquipes := 0
+	for contagemProgramadores > 0 && contagemMatematicos > 0 {
+		contagemProgramadores--
+		contagemMatematicos--
+		numeroMaximoEquipes++
+	}
+
+	return numeroMaximoEquipes
 }
