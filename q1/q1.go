@@ -12,6 +12,26 @@ package q1
 //Polycarp possui 𝑥 cães e 𝑦 gatos. Gostaríamos de determinar se é possível para ele comprar comida suficiente para todos
 //os seus animais na loja. Cada um dos seus cães e gatos deve receber um pacote de ração adequado para sua espécie.
 
-func CanBuyFood(stock map[string]int, dogs, cats int) bool {
-	return false
+
+import "fmt"
+
+func verificarPossibilidadeCompra(qtdCachorros, qtdGatos int, estoque map[string]int) bool {
+	// Verifica se há rações suficientes para os cachorros
+	estoqueCachorro, okCachorro := estoque["dog"]
+	if !okCachorro || estoqueCachorro < qtdCachorros {
+		return false
+	}
+
+	// Verifica se há rações suficientes para os gatos
+	estoqueGato, okGato := estoque["cat"]
+	if !okGato || estoqueGato < qtdGatos {
+		return false
+	}
+
+	// Calcula a quantidade total necessária
+	qtdTotalNecessaria := qtdCachorros + qtdGatos
+
+	// Verifica se há rações universais suficientes para complementar
+	estoqueUniversal, okUniversal := estoque["universal"]
+	return okUniversal && estoqueUniversal >= qtdTotalNecessaria
 }
